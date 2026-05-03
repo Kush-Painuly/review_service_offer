@@ -6,7 +6,7 @@ export default function QRGenerator() {
   const [businessId, setBusinessId] = useState("");
   const qrRef = useRef();
 
-  const baseUrl = "http://localhost:5173";
+  const baseUrl = "https://review-service-offer.vercel.app/";
 
   const qrValue = businessId
     ? `${baseUrl}/?b=${businessId}`
