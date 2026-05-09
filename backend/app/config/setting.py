@@ -14,7 +14,7 @@ BUSINESSES = {
         "google_review_url": "https://g.page/r/XXXXX/review"
     },
     "xyz789": {
-        "name": "Urban Gym",
+        "name": "Muscle Max Gym",
         "category": "Fitness",
         "keywords": ["equipment", "cleanliness", "trainers"],
         "google_review_url": "https://g.page/r/YYYYY/review"
