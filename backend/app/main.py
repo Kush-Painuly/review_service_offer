@@ -3,6 +3,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.routes.review_routes import router as review_router
 from app.routes.analytics_routes import router as analytics_router
 from app.routes.dashboard_routes import router as dashboard_router
+from app.routes.business_management_routes import (
+    router as business_management_router
+)
 
 app = FastAPI(title="AI Review Generator")
 
@@ -24,3 +27,4 @@ def health():
 app.include_router(review_router)
 app.include_router(analytics_router)
 app.include_router(dashboard_router)
+app.include_router(business_management_router)
