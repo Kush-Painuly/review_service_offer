@@ -4,6 +4,7 @@ import ReviewList from "./components/ReviewList";
 import { useReviews } from "./hooks/useReviews";
 import Loader from "./components/Loader";
 import { getBusinessConfig } from "./service/api";
+import { trackEvent } from "./service/analytics";
 import { motion } from "framer-motion";
 
 export default function App() {
@@ -29,6 +30,7 @@ export default function App() {
         const data = await getBusinessConfig(businessId);
         setBusinessName(data.name);
         setGoogleUrl(data.google_review_url);
+        trackEvent(businessId, "qr_scan");
       } catch {
         console.error("Invalid business ID");
       }
@@ -41,24 +43,21 @@ export default function App() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-neutral-950 text-white">
         <div className="text-center max-w-md">
+          <h1 className="text-4xl font-semibold tracking-tight mb-4">
+            Review Generator
+          </h1>
 
-        <h1 className="text-4xl font-semibold tracking-tight mb-4">
-           Review Generator
-        </h1>
-
-        <p className="text-white/60 leading-relaxed">
-          This review page is accessed through a business QR code.
-          Please scan a valid QR to continue.
-        </p>
-
-      </div>
+          <p className="text-white/60 leading-relaxed">
+            This review page is accessed through a business QR code. Please scan
+            a valid QR to continue.
+          </p>
+        </div>
       </div>
     );
   }
 
   return (
     <div className="relative min-h-screen bg-neutral-950 text-white flex items-center justify-center px-4 py-10 overflow-hidden">
-
       {/* Ambient gradients */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(255,255,255,0.05),transparent_40%),radial-gradient(circle_at_85%_30%,rgba(255,255,255,0.04),transparent_40%)]" />
 
@@ -71,15 +70,12 @@ export default function App() {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="relative w-full max-w-xl z-10"
       >
-
         {/* Glass Card */}
         <div className="relative rounded-3xl border border-white/10 bg-white/[0.05] backdrop-blur-2xl shadow-[0_20px_80px_rgba(0,0,0,0.8)] overflow-hidden">
-
           {/* Inner glow */}
           <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/10 via-transparent to-transparent opacity-30 pointer-events-none" />
 
           <div className="relative p-6 sm:p-8 md:p-10">
-
             {/* Header */}
             <div className="text-center mb-10">
               <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight leading-tight">
@@ -104,7 +100,13 @@ export default function App() {
               <motion.button
                 whileTap={{ scale: 0.96 }}
                 whileHover={{ scale: 1.03 }}
-                onClick={() => fetchReviews(rating, businessId)}
+                onClick={async () => {
+                  await fetchReviews(rating, businessId);
+
+                  trackEvent(businessId, "review_generated", {
+                    rating,
+                  });
+                }}
                 disabled={!rating || loading}
                 className="relative group px-8 py-3 rounded-xl font-medium bg-white text-black overflow-hidden disabled:opacity-40"
               >
@@ -122,9 +124,7 @@ export default function App() {
 
             {/* Error */}
             {error && (
-              <p className="text-red-400 text-center mt-6 text-sm">
-                {error}
-              </p>
+              <p className="text-red-400 text-center mt-6 text-sm">{error}</p>
             )}
 
             {/* Reviews */}
@@ -135,11 +135,16 @@ export default function App() {
             {/* Actions */}
             {reviews.length > 0 && (
               <div className="flex flex-col sm:flex-row gap-4 mt-10">
-
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
-                  onClick={() => fetchReviews(rating, businessId)}
+                  onClick={async () => {
+                    await fetchReviews(rating, businessId);
+
+                    trackEvent(businessId, "regenerate_clicked", {
+                      rating,
+                    });
+                  }}
                   className="flex-1 px-5 py-3 rounded-xl border border-white/15 hover:bg-white/5 backdrop-blur-md"
                 >
                   Regenerate
@@ -148,12 +153,15 @@ export default function App() {
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
-                  onClick={() => window.open(googleUrl, "_blank")}
+                  onClick={() => {
+                    trackEvent(businessId, "google_redirect");
+
+                    window.open(googleUrl, "_blank");
+                  }}
                   className="flex-1 px-5 py-3 rounded-xl bg-white text-black font-medium"
                 >
                   Post on Google
                 </motion.button>
-
               </div>
             )}
           </div>
@@ -163,7 +171,6 @@ export default function App() {
         <div className="text-center mt-8 text-xs text-neutral-600 tracking-[0.2em] uppercase">
           Crafted for seamless feedback
         </div>
-
       </motion.div>
     </div>
   );
