@@ -40,9 +40,18 @@ export default function App() {
   if (!businessId) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-neutral-950 text-white">
-        <p className="text-sm text-white/60 tracking-wide">
-          Invalid QR link
+        <div className="text-center max-w-md">
+
+        <h1 className="text-4xl font-semibold tracking-tight mb-4">
+           Review Generator
+        </h1>
+
+        <p className="text-white/60 leading-relaxed">
+          This review page is accessed through a business QR code.
+          Please scan a valid QR to continue.
         </p>
+
+      </div>
       </div>
     );
   }
