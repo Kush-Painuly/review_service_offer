@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
 import QRGenerator from "./pages/QRGenerator";
+import Dashboard from "./pages/Dashboard";
 
 export default function Root() {
   return (
@@ -8,6 +9,7 @@ export default function Root() {
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/qr" element={<QRGenerator />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   );
