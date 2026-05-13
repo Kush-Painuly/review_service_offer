@@ -10,7 +10,7 @@ def create_business(db: Session, data):
         category=data.category,
         keywords=data.keywords,
         google_review_url=data.google_review_url,
-        slug=data.slug
+        business_slug=data.business_slug
     )
 
     db.add(business)
