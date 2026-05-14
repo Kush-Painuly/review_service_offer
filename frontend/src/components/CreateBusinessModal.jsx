@@ -38,9 +38,8 @@ export default function CreateBusinessModal({
         keywords: form.keywords
           .split(",")
           .map((item) => item.trim())
+          .filter(Boolean)
       });
-
-      onClose();
 
       setForm({
         business_name: "",
@@ -50,9 +49,13 @@ export default function CreateBusinessModal({
         google_review_url: ""
       });
 
+      onClose();
+
     } catch (err) {
 
       console.error(err);
+
+      alert("Failed to create business");
 
     } finally {
 
@@ -84,12 +87,10 @@ export default function CreateBusinessModal({
             className="relative w-full max-w-2xl rounded-3xl border border-white/10 bg-white/[0.05] backdrop-blur-2xl overflow-hidden shadow-[0_30px_100px_rgba(0,0,0,0.75)]"
           >
 
-            {/* Ambient inner glow */}
             <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent opacity-20 pointer-events-none" />
 
             <div className="relative p-6 sm:p-8 md:p-10">
 
-              {/* Header */}
               <div className="flex items-start justify-between gap-4 mb-10">
 
                 <div>
@@ -106,6 +107,7 @@ export default function CreateBusinessModal({
 
                 <button
                   onClick={onClose}
+                  type="button"
                   className="w-10 h-10 rounded-full border border-white/10 bg-white/[0.04] text-white/50 hover:text-white hover:bg-white/[0.08] transition-all flex items-center justify-center"
                 >
                   ✕
@@ -113,13 +115,11 @@ export default function CreateBusinessModal({
 
               </div>
 
-              {/* Form */}
               <form
                 onSubmit={handleSubmit}
                 className="space-y-5"
               >
 
-                {/* Business Name */}
                 <div className="space-y-2">
 
                   <label className="text-xs uppercase tracking-[0.18em] text-white/35">
@@ -129,16 +129,15 @@ export default function CreateBusinessModal({
                   <input
                     type="text"
                     name="business_name"
-                    placeholder="Enter business name"
                     value={form.business_name}
                     onChange={handleChange}
-                    className="w-full rounded-2xl bg-white/[0.04] border border-white/10 px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-white/15 focus:border-white/20 transition-all"
+                    placeholder="Enter business name"
+                    className="w-full rounded-2xl bg-white/[0.04] border border-white/10 px-4 py-3 text-white placeholder:text-white/30 focus:outline-none"
                     required
                   />
 
                 </div>
 
-                {/* Slug */}
                 <div className="space-y-2">
 
                   <label className="text-xs uppercase tracking-[0.18em] text-white/35">
@@ -148,16 +147,15 @@ export default function CreateBusinessModal({
                   <input
                     type="text"
                     name="business_slug"
-                    placeholder="your-business-slug"
                     value={form.business_slug}
                     onChange={handleChange}
-                    className="w-full rounded-2xl bg-white/[0.04] border border-white/10 px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-white/15 focus:border-white/20 transition-all"
+                    placeholder="your-business-slug"
+                    className="w-full rounded-2xl bg-white/[0.04] border border-white/10 px-4 py-3 text-white placeholder:text-white/30 focus:outline-none"
                     required
                   />
 
                 </div>
 
-                {/* Category */}
                 <div className="space-y-2">
 
                   <label className="text-xs uppercase tracking-[0.18em] text-white/35">
@@ -167,16 +165,15 @@ export default function CreateBusinessModal({
                   <input
                     type="text"
                     name="category"
-                    placeholder="Restaurant, Salon, Cafe..."
                     value={form.category}
                     onChange={handleChange}
-                    className="w-full rounded-2xl bg-white/[0.04] border border-white/10 px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-white/15 focus:border-white/20 transition-all"
+                    placeholder="Restaurant, Salon, Cafe..."
+                    className="w-full rounded-2xl bg-white/[0.04] border border-white/10 px-4 py-3 text-white placeholder:text-white/30 focus:outline-none"
                     required
                   />
 
                 </div>
 
-                {/* Keywords */}
                 <div className="space-y-2">
 
                   <label className="text-xs uppercase tracking-[0.18em] text-white/35">
@@ -186,16 +183,15 @@ export default function CreateBusinessModal({
                   <input
                     type="text"
                     name="keywords"
-                    placeholder="friendly staff, quick service, ambience..."
                     value={form.keywords}
                     onChange={handleChange}
-                    className="w-full rounded-2xl bg-white/[0.04] border border-white/10 px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-white/15 focus:border-white/20 transition-all"
+                    placeholder="friendly staff, quick service..."
+                    className="w-full rounded-2xl bg-white/[0.04] border border-white/10 px-4 py-3 text-white placeholder:text-white/30 focus:outline-none"
                     required
                   />
 
                 </div>
 
-                {/* URL */}
                 <div className="space-y-2">
 
                   <label className="text-xs uppercase tracking-[0.18em] text-white/35">
@@ -205,29 +201,26 @@ export default function CreateBusinessModal({
                   <input
                     type="text"
                     name="google_review_url"
-                    placeholder="https://..."
                     value={form.google_review_url}
                     onChange={handleChange}
-                    className="w-full rounded-2xl bg-white/[0.04] border border-white/10 px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-white/15 focus:border-white/20 transition-all"
+                    placeholder="https://..."
+                    className="w-full rounded-2xl bg-white/[0.04] border border-white/10 px-4 py-3 text-white placeholder:text-white/30 focus:outline-none"
                     required
                   />
 
                 </div>
 
-                {/* CTA */}
                 <motion.button
                   whileHover={{ scale: 1.01 }}
                   whileTap={{ scale: 0.98 }}
                   type="submit"
                   disabled={loading}
-                  className="relative group w-full rounded-2xl bg-white text-black py-3.5 font-medium overflow-hidden disabled:opacity-50"
+                  className="w-full rounded-2xl bg-white text-black py-3.5 font-medium disabled:opacity-50"
                 >
 
-                  <span className="relative z-10">
-                    {loading ? "Creating..." : "Create Business"}
-                  </span>
-
-                  <div className="absolute inset-0 bg-gradient-to-r from-neutral-200 to-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  {loading
+                    ? "Creating..."
+                    : "Create Business"}
 
                 </motion.button>
 
