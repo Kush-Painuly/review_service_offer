@@ -6,7 +6,6 @@ import {
   deleteBusiness
 } from "../service/businessService";
 
-
 export function useBusinesses() {
 
   const [businesses, setBusinesses] = useState([]);
@@ -15,12 +14,13 @@ export function useBusinesses() {
 
   const [error, setError] = useState(null);
 
-
   async function loadBusinesses() {
 
     try {
 
       setLoading(true);
+
+      setError(null);
 
       const data = await getBusinesses();
 
@@ -28,7 +28,9 @@ export function useBusinesses() {
 
     } catch (err) {
 
-      setError(err.message);
+      console.error(err);
+
+      setError("Failed to load businesses");
 
     } finally {
 
@@ -36,24 +38,44 @@ export function useBusinesses() {
     }
   }
 
-
   async function handleCreateBusiness(payload) {
 
-    await createBusiness(payload);
+    try {
 
-    await loadBusinesses();
+      const newBusiness = await createBusiness(payload);
+
+      setBusinesses((prev) => [
+        newBusiness,
+        ...prev
+      ]);
+
+      return newBusiness;
+
+    } catch (err) {
+
+      console.error(err);
+
+      throw err;
+    }
   }
-
 
   async function handleDeleteBusiness(id) {
 
-    await deleteBusiness(id);
+    try {
 
-    setBusinesses((prev) =>
-      prev.filter((business) => business.id !== id)
-    );
+      await deleteBusiness(id);
+
+      setBusinesses((prev) =>
+        prev.filter((business) => business.id !== id)
+      );
+
+    } catch (err) {
+
+      console.error(err);
+
+      throw err;
+    }
   }
-
 
   useEffect(() => {
 
@@ -61,12 +83,12 @@ export function useBusinesses() {
 
   }, []);
 
-
   return {
     businesses,
     loading,
     error,
     createBusiness: handleCreateBusiness,
-    deleteBusiness: handleDeleteBusiness
+    deleteBusiness: handleDeleteBusiness,
+    refetch: loadBusinesses
   };
 }
