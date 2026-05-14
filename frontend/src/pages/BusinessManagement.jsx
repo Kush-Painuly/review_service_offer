@@ -5,7 +5,7 @@ import CreateBusinessModal from "../components/CreateBusinessModal";
 
 export default function BusinessManagement() {
   const [openModal, setOpenModal] = useState(false);
-  const { businesses, loading, error, createBusiness } = useBusinesses();
+  const { businesses, loading, error, CreateBusinessModal } = useBusinesses();
 
   if (loading) {
     return (
