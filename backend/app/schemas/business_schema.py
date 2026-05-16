@@ -9,7 +9,7 @@ class BusinessCreate(BaseModel):
     category: str
     keywords: List[str]
     google_review_url: str
-    slug: str
+    business_slug: str
 
 
 class BusinessResponse(BaseModel):
