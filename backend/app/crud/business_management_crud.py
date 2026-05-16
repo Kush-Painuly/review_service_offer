@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-
+from uuid import UUID
 from app.models.business_model import Business
 
 
@@ -25,7 +25,7 @@ def get_all_businesses(db: Session):
     return db.query(Business).all()
 
 
-def delete_business(db: Session, business_id: int):
+def delete_business(db: Session, business_id: UUID):
 
     business = db.query(Business).filter(
         Business.id == business_id

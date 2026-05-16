@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from uuid import UUID
 
 from app.db.database import get_db
 
@@ -36,7 +37,7 @@ async def get_businesses_route(
 
 @router.delete("/{business_id}")
 async def delete_business_route(
-    business_id: int,
+    business_id: UUID,
     db: Session = Depends(get_db)
 ):
 
