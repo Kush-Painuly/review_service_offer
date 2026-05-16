@@ -193,7 +193,7 @@ export default function BusinessManagement() {
 
                   {/* Open */}
                   <a
-                    href={`/r/${business.business_slug}`}
+                    href={`/?b=${business.business_slug}`}
                     target="_blank"
                     rel="noreferrer"
                     className="
