@@ -158,15 +158,9 @@ export default function BusinessManagement() {
                         {keyword}
                       </span>
                     ))}
-
                   </div>
-
                 </div>
-
-                {/* Actions */}
                 <div className="mt-8 flex items-center gap-3 flex-wrap">
-
-                  {/* Copy Link */}
                   <button
                     onClick={() => {
 
