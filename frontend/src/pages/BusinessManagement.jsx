@@ -1,11 +1,13 @@
 import { motion } from "framer-motion";
 import { useBusinesses } from "../hooks/useBusinesses";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import CreateBusinessModal from "../components/CreateBusinessModal";
 
 export default function BusinessManagement() {
 
   const [openModal, setOpenModal] = useState(false);
+  const navigate = useNavigate();
 
   const {
     businesses,
@@ -220,10 +222,9 @@ export default function BusinessManagement() {
 
                   {/* QR */}
                   <button
-                   onClick={() => {
-                        window.location.href =
-                          `/qr-generator?b=${business.business_slug}`;
-                      }}
+                   onClick={() =>
+                          navigate(`/qr?b=${business.business_slug}`)
+                        }
                     className="
                       px-4 py-3
                       rounded-2xl
