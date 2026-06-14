@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from uuid import UUID
+
 from app.models.business_model import Business
 
 
@@ -25,11 +26,28 @@ def get_all_businesses(db: Session):
     return db.query(Business).all()
 
 
-def delete_business(db: Session, business_id: UUID):
+def get_business_by_slug(
+    db: Session,
+    slug: str
+):
 
-    business = db.query(Business).filter(
-        Business.id == business_id
-    ).first()
+    return (
+        db.query(Business)
+        .filter(Business.business_slug == slug)
+        .first()
+    )
+
+
+def delete_business(
+    db: Session,
+    business_id: UUID
+):
+
+    business = (
+        db.query(Business)
+        .filter(Business.id == business_id)
+        .first()
+    )
 
     if not business:
         return None
