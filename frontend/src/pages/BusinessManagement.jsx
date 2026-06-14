@@ -220,6 +220,10 @@ export default function BusinessManagement() {
 
                   {/* QR */}
                   <button
+                   onClick={() => {
+                        window.location.href =
+                          `/qr-generator?b=${business.business_slug}`;
+                      }}
                     className="
                       px-4 py-3
                       rounded-2xl
