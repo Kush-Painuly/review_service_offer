@@ -41,17 +41,144 @@ export default function App() {
 
   if (!businessId) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-neutral-950 text-white">
-        <div className="text-center max-w-md">
-          <h1 className="text-4xl font-semibold tracking-tight mb-4">
-            Review Generator
+      <div className="relative min-h-screen bg-neutral-950 text-white flex items-center justify-center px-6 overflow-hidden">
+
+        {/* Ambient Background */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(255,255,255,0.05),transparent_35%),radial-gradient(circle_at_85%_30%,rgba(255,255,255,0.04),transparent_40%)]" />
+
+        {/* Noise Texture */}
+        <div className="pointer-events-none absolute inset-0 opacity-[0.04] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+
+        {/* Glow Orb */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-white/[0.03] blur-[120px] rounded-full" />
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="relative z-10 max-w-4xl text-center"
+        >
+
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.04] backdrop-blur-xl mb-8">
+
+            <div className="w-2 h-2 rounded-full bg-white/70" />
+
+            <span className="text-xs uppercase tracking-[0.2em] text-white/60">
+              AI Powered Review Platform
+            </span>
+
+          </div>
+
+          {/* Hero */}
+          <h1 className="text-5xl md:text-7xl font-semibold tracking-tight leading-[0.95]">
+
+            Transform Customer
+            <br />
+
+            Feedback Into
+            <span className="text-white/60"> Growth</span>
+
           </h1>
 
-          <p className="text-white/60 leading-relaxed">
-            This review page is accessed through a business QR code. Please scan
-            a valid QR to continue.
+          <p className="max-w-2xl mx-auto text-lg md:text-xl text-white/50 mt-8 leading-relaxed">
+
+            Generate authentic review suggestions,
+            streamline customer feedback, and increase
+            review conversion through intelligent
+            QR-powered workflows.
+
           </p>
-        </div>
+
+          {/* CTA */}
+          <div className="flex flex-col sm:flex-row justify-center gap-4 mt-12">
+
+            <motion.a
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              href="/manage"
+              className="
+              group
+              px-7 py-3.5
+              rounded-2xl
+              bg-white
+              text-black
+              font-medium
+              shadow-[0_10px_30px_rgba(255,255,255,0.08)]
+            "
+            >
+              Business Dashboard
+            </motion.a>
+
+            <motion.a
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              href="/qr"
+              className="
+              px-7 py-3.5
+              rounded-2xl
+              border border-white/10
+              bg-white/[0.04]
+              backdrop-blur-xl
+              hover:bg-white/[0.07]
+              transition-all
+            "
+            >
+              QR Generator
+            </motion.a>
+
+          </div>
+
+          {/* Stats */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-20">
+
+            <div className="rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-xl p-6">
+
+              <h3 className="text-3xl font-semibold">
+                AI
+              </h3>
+
+              <p className="text-sm text-white/45 mt-2">
+                Smart review generation
+              </p>
+
+            </div>
+
+            <div className="rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-xl p-6">
+
+              <h3 className="text-3xl font-semibold">
+                QR
+              </h3>
+
+              <p className="text-sm text-white/45 mt-2">
+                Seamless customer journeys
+              </p>
+
+            </div>
+
+            <div className="rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-xl p-6">
+
+              <h3 className="text-3xl font-semibold">
+                Analytics
+              </h3>
+
+              <p className="text-sm text-white/45 mt-2">
+                Measure review performance
+              </p>
+
+            </div>
+
+          </div>
+
+          {/* Footer Line */}
+          <div className="mt-14 text-xs uppercase tracking-[0.25em] text-white/25">
+
+            Built for modern customer engagement
+
+          </div>
+
+        </motion.div>
+
       </div>
     );
   }
