@@ -41,7 +41,7 @@ export default function App() {
 
   if (!businessId) {
     return (
-      <div className="relative min-h-screen bg-neutral-950 text-white flex items-center justify-center px-6 overflow-hidden">
+      <div className="pt-10 relative min-h-screen bg-neutral-950 text-white flex items-center justify-center px-6 overflow-hidden">
 
         {/* Ambient Background */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(255,255,255,0.05),transparent_35%),radial-gradient(circle_at_85%_30%,rgba(255,255,255,0.04),transparent_40%)]" />
